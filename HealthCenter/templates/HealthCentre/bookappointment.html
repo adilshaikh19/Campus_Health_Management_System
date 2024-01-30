@@ -1,0 +1,122 @@
+{% extends "HealthCentre/layout.html" %}
+
+{% block title %}
+Book Appointment
+{% endblock %}
+
+{% block bodytag %}
+
+{% endblock %}
+
+{% block body %}
+
+<style>
+    /* CSS for Django messages */
+ul.messages {
+    list-style: none;
+    padding: 10px;
+    margin: 0;
+}
+
+.messages li {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Styles for different message types */
+.success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.error {
+    background-color: #FF5733;
+    color: white;
+}
+
+.warning {
+    background-color: #FFC300;
+    color: white;
+}
+
+.info {
+    background-color: #3498DB;
+    color: white;
+}
+
+</style>
+
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+
+
+<div class="container mt-5">
+    <h2>Book an Appointment</h2>
+    <form method="post" action="{% url 'bookappointment' %}" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="appointmentDate">Select Appointment Date:</label>
+            <input type="date" class="form-control" id="appointmentDate" name="appointment_date" required>
+        </div>
+
+        <div class="form-group">
+            <label for="timeslot">Select Timeslot:</label>
+            <select class="form-control" id="timeslot" name="timeslot" required>
+                <option value="">Select Timeslot</option>
+                <option value="9:00 AM">9:00 AM</option>
+                <option value="10:00 AM">10:00 AM</option>
+                <option value="11:00 AM">11:00 AM</option>
+                <option value="2:00 PM">2:00 PM</option>
+                <option value="3:00 PM">3:00 PM</option>
+                <!-- Add more options as needed -->
+            </select>
+        </div>
+
+        
+        <div class="form-group">
+            <label for="doctor">Select Doctor:</label>
+            <select class="form-control" id="doctor" name="doctor" required>
+                <option value="">Select Doctor</option>
+                <!-- Add options for doctors dynamically from your database -->
+                {% for doctor in doctors %}
+                <option value="{{ doctor.id }}">{{ doctor.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="reason">Reason for Appointment:</label>
+            <textarea class="form-control" id="reason" name="reason" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Book Appointment</button>
+    </form>
+</div>
+
+
+<script>
+    function validateForm() {
+        var appointmentDate = document.getElementById("appointmentDate").value;
+        var timeslot = document.getElementById("timeslot").value;
+        var doctor = document.getElementById("doctor").value;
+        var reason = document.getElementById("reason").value;
+
+        // Basic form validation example (you can add more validation rules as needed)
+        if (appointmentDate === "" || timeslot === "" || doctor === "" || reason === "") {
+            alert("All fields are required. Please fill out the complete form.");
+            return false; // Prevent form submission if validation fails
+        }
+
+        // Additional validation logic can be added here
+
+        return true; // Allow form submission if validation passes
+    }
+</script>
+
+
+{% endblock %}

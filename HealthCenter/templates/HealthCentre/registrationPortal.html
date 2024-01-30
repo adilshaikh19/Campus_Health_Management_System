@@ -1,0 +1,86 @@
+{% extends "HealthCentre/layout.html" %}
+
+{% block title %}
+DY Patil Campus Health Centre
+{% endblock%}
+
+{% block script %}
+{% load static %}
+<script src="{% static 'HealthCentre/javascript/checkboxConfirm.js' %}"></script>
+{% endblock %}
+
+{% block bodytag %}
+{% load static %}
+{% endblock %}
+
+{% block body %}
+
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h1 class="card-title text-center mb-4">Register Here</h1>
+                    <form onsubmit="return checkConfirm()" action="{% url 'register' %}" method="post">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <input name="userFirstName" type="text" class="form-control" placeholder="First name"
+                                    required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input name="userLastName" type="text" class="form-control" placeholder="Last name"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <input name="userEmail" type="email" class="form-control" placeholder="Email Address"
+                                    required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input name="userRollNo" type="text" class="form-control" placeholder="Roll Number"
+                                    required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <input name="userAddress" type="text" class="form-control" placeholder="Address"
+                                    required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input name="userContactNo" type="number" class="form-control"
+                                    placeholder="Contact Number" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <input name="userPassword" type="password" class="form-control" placeholder="Password"
+                                    required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <input name="userConfirmPassword" type="password" class="form-control"
+                                    placeholder="Confirm Password" required>
+                            </div>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" id="confirmCheck" required>
+                            <label class="form-check-label" for="confirmCheck">
+                                <span class="badge badge-success">CONFIRM</span>
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-warning btn-block">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if message %}
+<div class="alert alert-warning text-center my-4" role="alert">
+    {{ message }}
+</div>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,156 @@
+{% extends "HealthCentre/layout.html" %}
+
+{% block title %}
+DY Patil Campus Health Centre
+{% endblock %}
+
+
+{% block body %}
+{% load static %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+    }
+
+    .header {
+        background-color: #d7aeae;
+        color: rgb(0, 0, 0); /* Set text color to white for better visibility on the image */
+        text-align: center; /* Center-align the text */
+        padding: 50px 0; /* Add some padding to the top and bottom of the div */
+    }
+
+    .carousel-item img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+    }
+
+    .alert {
+        background-color: #dc3545;
+        color: white;
+        text-align: center;
+        padding: 10px;
+    }
+
+    .jumbotron {
+        background-color: #28a745;
+        color: white;
+        text-align: center;
+        /* margin-top: 0px; */
+        padding: 30px;
+    }
+
+    .card {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    #Footer {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 1px;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+    }
+</style>
+
+
+
+<div class="header">
+    <h1>Welcome to DY Patil Campus Health Centre</h1>
+    <p>Good health and well-being for all</p>
+</div>
+
+<div class="alert">
+    Dengue Outbreak in Pune!! Get a precautionary checkup immediately!!
+</div>
+
+
+{% if not request.session.isLoggedIn %}
+<div class="jumbotron">
+    <h1 class="display-4">Haven't registered yet?</h1>
+    <p class="lead">Register yourself today and get access to all the benefits of the Health Centre!</p>
+    <hr class="my-4">
+    <p>You must be a member of DY Patil to have access to this facility.</p>
+    <a class="btn btn-light btn-lg" href="{% url 'register' %}" role="button">Register</a>
+</div>
+{% endif %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Medical Store</h5>
+                    <p class="card-text">Avail benefits of online medical store!</p>
+                    <a href="{% url 'MedicalStore:index' %}" class="btn btn-primary">MEDICAL STORE</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Emergency Ambulance</h5>
+                    <p class="card-text">Get immediate ambulance in emergency situations.</p>
+                    <a href="{% url 'emergency' %}" class="btn btn-primary">EMERGENCY</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Online Prescription</h5>
+                    <p class="card-text">Get online hassle-free prescriptions from doctors.</p>
+                    <a href="{% url 'onlineprescription' %}" class="btn btn-primary">ONLINE PRESCRIPTION</a>
+                </div>
+            </div>
+        </div>  
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Book Appointment</h5>
+                    <p class="card-text">Book Appointment hassle-free online</p>
+                    <a href="{% url 'bookappointment' %}" class="btn btn-primary">Book Appointment</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Doctors</h5>
+                    <p class="card-text">Get in touch with Doctors.</p>
+                    <a href="{% url 'doctors' %}" class="btn btn-primary">Doctors</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Contact Us</h5>
+                    <p class="card-text">24x7 Help Line Availability.</p>
+                    <a href="{% url 'contactus' %}" class="btn btn-primary">CONTACT US</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+
+<!-- <div id="Footer">
+    <div class="container">
+        <p>&copy; 2023 All Rights Reserved, DY Patil</p>
+    </div>
+</div> -->
+
+{% endblock %}

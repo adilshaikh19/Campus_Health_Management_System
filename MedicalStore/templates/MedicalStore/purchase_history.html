@@ -1,0 +1,45 @@
+{% extends "HealthCentre/layout.html" %}
+
+{% block title %}
+Purchase History
+{% endblock %}
+
+{% block body %}
+
+<div class="container my-5">
+    <h1 class="text-center text-dark display-4 mb-4">Purchase History</h1>
+    <hr class="bg-warning mb-4" style="width: 25%; height: 3px;">
+
+    {% if purchases %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="col">Medicine Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Address</th>
+                <th scope="col">Purchase Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for purchase in purchases %}
+            <tr>
+                <td>{{ purchase.medicine.name }}</td>
+                <td>{{ purchase.quantity }}</td>
+                <td>{{ purchase.address }}</td>
+                <td>{{ purchase.purchase_date|date:"F d, Y" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No purchase history available.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="alert alert-info">
+        You haven't made any purchases yet.
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

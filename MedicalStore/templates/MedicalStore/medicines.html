@@ -1,0 +1,78 @@
+{% extends "HealthCentre/layout.html" %}
+
+{% block title %}
+DY Patil Campus Health Centre
+{% endblock%}
+
+{% block bodytag %}
+{% load static %}
+{% endblock %}
+
+{% block body %}
+<style>
+    .card-img-top{
+        width: 50%;
+    }
+</style>
+
+<div class="container my-5">
+    <h1 class="text-center text-dark display-4 mb-4">Medical Store</h1>
+    <hr class="bg-warning mb-4" style="width: 25%; height: 3px;">
+
+    {% if success_message %}
+    <div class="alert alert-success mb-4">
+        {{ success_message }}
+    </div>
+    {% endif %}
+
+    <div class="row row-cols-1 row-cols-md-6 g-4">
+        {% for medicine in medicines %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="{% static 'MedicalStore/images/'|add:medicine.photoId %}" class="card-img-top"
+                    alt="{{ medicine.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ medicine.name }}</h5>
+                    <p class="card-text">
+                        <strong>Company:</strong> {{ medicine.company }}<br>
+                        <strong>Manufacturing Date:</strong> {{ medicine.manufacturedDate }}<br>
+                        <strong>Expiry Date:</strong> {{ medicine.expiryDate }}<br>
+                        <strong>Quantity Remaining:</strong> {{ medicine.quantity }}
+                    </p>
+                    <h2 class="card-link lead text-dark mb-4">Price: &#8377;{{ medicine.price }}</h2>
+                    
+                    <p>*You can buy only 1 Quantity at a time
+                        <br>
+                        *Order will deliver at Wardern's office, Please Collect.
+                    </p>
+                    
+                </div>
+                <div class="card-footer">
+                    <form method="post" action="{% url 'MedicalStore:buy_medicine' medicine.id %}">
+                        {% csrf_token %}
+                        <div class="form-group mb-4">
+                            <label for="addressSelect" class="form-label">Select Address:</label>
+                            <select class="form-select" id="addressSelect" name="address">
+                                <option value="Hostel B1">Hostel B1</option>
+                                <option value="Hostel B2">Hostel B2</option>
+                                <option value="Hostel B3">Hostel B3</option>
+                                <option value="Hostel G1">Hostel G1</option>
+                                <option value="Hostel G2">Hostel G5</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Buy</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+
+        {% endfor %}
+    </div>
+
+    
+</div>
+
+
+
+{% endblock %}
